@@ -21,6 +21,7 @@ public class DriveSubsystem extends SubsystemBase {
   private static final double ROBOT_LENGTH = 1.0;
   private static final double ROBOT_WIDTH = 1.0;
 
+  // create telemetry first
   private final TelemetryService telemetryService = RobotContainer.TELEMETRY;
   private final SwerveDrive swerve = getSwerve();
 
