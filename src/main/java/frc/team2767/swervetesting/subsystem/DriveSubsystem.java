@@ -11,7 +11,6 @@ import frc.team2767.swervetesting.RobotContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.strykeforce.thirdcoast.swerve.SwerveDrive;
-import org.strykeforce.thirdcoast.swerve.SwerveDrive.DriveMode;
 import org.strykeforce.thirdcoast.swerve.SwerveDriveConfig;
 import org.strykeforce.thirdcoast.swerve.Wheel;
 import org.strykeforce.thirdcoast.telemetry.TelemetryService;
@@ -38,18 +37,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void drive(double forward, double strafe, double yaw) {
     swerve.drive(forward, strafe, yaw);
-  }
-
-  public void zeroSwerve() {
-    Wheel[] swerveWheels = swerve.getWheels();
-    for (int i = 0; i < 4; i++) {
-      swerveWheels[i].setAzimuthPosition(0);
-    }
-  }
-
-  public void setDriveMode(DriveMode mode) {
-    logger.debug("setting drive mode to {}", mode);
-    swerve.setDriveMode(mode);
   }
 
   public void zeroGyro() {
@@ -84,14 +71,14 @@ public class DriveSubsystem extends SubsystemBase {
     azimuthConfig.peakCurrentLimit = 0;
     azimuthConfig.slot0.kP = 20;
     azimuthConfig.slot0.kI = 0.0;
-    azimuthConfig.slot0.kD = 200.0;
+    azimuthConfig.slot0.kD = 300.0;
     azimuthConfig.slot0.kF = 0.0;
     azimuthConfig.slot0.integralZone = 0;
     azimuthConfig.slot0.allowableClosedloopError = 0;
     azimuthConfig.motionAcceleration = 10_000;
     azimuthConfig.motionCruiseVelocity = 800;
-    azimuthConfig.peakOutputForward = 0.5;
-    azimuthConfig.peakOutputReverse = -0.5;
+    azimuthConfig.peakOutputForward = 0.75;
+    azimuthConfig.peakOutputReverse = -0.75;
 
     TalonSRXConfiguration driveConfig = new TalonSRXConfiguration();
     driveConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
