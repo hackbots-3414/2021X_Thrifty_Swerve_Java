@@ -19,9 +19,9 @@ public final class TeleOpDriveCommand extends CommandBase {
   public void execute() {
     double forward = deadband(controls.getForward());
     double strafe = deadband(controls.getStrafe());
-    double azimuth = deadband(controls.getYaw());
+    double yaw = deadband(controls.getYaw());
 
-    DRIVE.drive(forward, strafe, azimuth);
+    DRIVE.drive(-forward, -strafe, -yaw);
   }
 
   @Override

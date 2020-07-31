@@ -41,6 +41,7 @@ deploy {
 }
 
 repositories {
+    mavenLocal()
     jcenter()
     maven { url = "http://first.wpi.edu/FRC/roborio/maven/release" }
 }
@@ -54,6 +55,8 @@ dependencies {
     implementation wpi.deps.wpilib()
     nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
+
+    compile "org.strykeforce:thirdcoast:${thirdcoastVersion}"
 
 
     implementation wpi.deps.vendor.java()

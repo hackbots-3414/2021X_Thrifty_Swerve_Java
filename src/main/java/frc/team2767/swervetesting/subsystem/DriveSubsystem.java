@@ -7,12 +7,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.team2767.swervetesting.RobotContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.strykeforce.thirdcoast.swerve.SwerveDrive;
 import org.strykeforce.thirdcoast.swerve.SwerveDrive.DriveMode;
 import org.strykeforce.thirdcoast.swerve.SwerveDriveConfig;
 import org.strykeforce.thirdcoast.swerve.Wheel;
+import org.strykeforce.thirdcoast.telemetry.TelemetryService;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -20,6 +22,7 @@ public class DriveSubsystem extends SubsystemBase {
   private static final double ROBOT_LENGTH = 1.0;
   private static final double ROBOT_WIDTH = 1.0;
 
+  private final TelemetryService telemetryService = RobotContainer.TELEMETRY;
   private final SwerveDrive swerve = getSwerve();
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -33,8 +36,8 @@ public class DriveSubsystem extends SubsystemBase {
     swerve.zeroAzimuthEncoders();
   }
 
-  public void drive(double forward, double strafe, double azimuth) {
-    swerve.drive(forward, strafe, azimuth);
+  public void drive(double forward, double strafe, double yaw) {
+    swerve.drive(forward, strafe, yaw);
   }
 
   public void zeroSwerve() {
@@ -79,14 +82,16 @@ public class DriveSubsystem extends SubsystemBase {
     azimuthConfig.continuousCurrentLimit = 10;
     azimuthConfig.peakCurrentDuration = 0;
     azimuthConfig.peakCurrentLimit = 0;
-    azimuthConfig.slot0.kP = 10.0;
+    azimuthConfig.slot0.kP = 20;
     azimuthConfig.slot0.kI = 0.0;
-    azimuthConfig.slot0.kD = 100.0;
+    azimuthConfig.slot0.kD = 200.0;
     azimuthConfig.slot0.kF = 0.0;
     azimuthConfig.slot0.integralZone = 0;
     azimuthConfig.slot0.allowableClosedloopError = 0;
     azimuthConfig.motionAcceleration = 10_000;
     azimuthConfig.motionCruiseVelocity = 800;
+    azimuthConfig.peakOutputForward = 0.5;
+    azimuthConfig.peakOutputReverse = -0.5;
 
     TalonSRXConfiguration driveConfig = new TalonSRXConfiguration();
     driveConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
@@ -100,9 +105,13 @@ public class DriveSubsystem extends SubsystemBase {
       TalonSRX azimuthTalon = new TalonSRX(i);
       azimuthTalon.configAllSettings(azimuthConfig);
 
+      telemetryService.register(azimuthTalon);
+
       TalonSRX driveTalon = new TalonSRX(i + 10);
       driveTalon.configAllSettings(driveConfig);
       driveTalon.setNeutralMode(NeutralMode.Brake);
+
+      telemetryService.register(driveTalon);
 
       Wheel wheel = new Wheel(azimuthTalon, driveTalon, DRIVE_SETPOINT_MAX);
       wheels[i] = wheel;
