@@ -21,3 +21,5 @@ Any time the 2021X_thirdcoast library project is updated, from GitBash, you will
 5. `gradlew publishToMavenLocal`
 
 Then rebuild your 2021X_Thrift_Swerve project.
+
+***BE VERY CAREFUL TO SELECT THE CORRECT master BRANCH when opening your pull request.  The Thrify Bot's master may be first in the list.***
