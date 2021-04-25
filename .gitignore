@@ -4,8 +4,12 @@
 *.iml
 *.iws
 *.ipr
-
+.gradle
+*.iws
+build
+/out
 .wpilib/
+bin
 
 # Created by https://www.gitignore.io/api/gradle,java
 # Edit at https://www.gitignore.io/?templates=gradle,java
