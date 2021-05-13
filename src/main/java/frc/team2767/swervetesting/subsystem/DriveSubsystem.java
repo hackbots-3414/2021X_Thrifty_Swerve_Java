@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2767.swervetesting.RobotContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.strykeforce.thirdcoast.swerve.SparkMaxAzimuthImpl;
 import org.strykeforce.thirdcoast.swerve.SwerveDrive;
 import org.strykeforce.thirdcoast.swerve.SwerveDriveConfig;
-import org.strykeforce.thirdcoast.swerve.TalonAzimuthImpl;
 import org.strykeforce.thirdcoast.swerve.Wheel;
 import org.strykeforce.thirdcoast.telemetry.TelemetryService;
 
@@ -93,10 +93,9 @@ public class DriveSubsystem extends SubsystemBase {
     Wheel[] wheels = new Wheel[4];
 
     for (int i = 0; i < 4; i++) {
-      TalonAzimuthImpl azimuthTalon = new TalonAzimuthImpl(i);
-      azimuthTalon.configAllSettings(azimuthConfig);
+      SparkMaxAzimuthImpl azimuthTalon = new SparkMaxAzimuthImpl(i, 30 + i, 20, 0, 300);
 
-      telemetryService.register(azimuthTalon);
+      // telemetryService.register(azimuthTalon);
 
       TalonFX driveTalon = new TalonFX(i + 10);
       driveTalon.configAllSettings(driveConfig);

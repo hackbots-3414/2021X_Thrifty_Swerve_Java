@@ -2,6 +2,8 @@ package frc.team2767.swervetesting.control;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.team2767.swervetesting.RobotContainer;
+import frc.team2767.swervetesting.command.StoreZeroEncoderPosition;
 import frc.team2767.swervetesting.command.ZeroGyroCommand;
 
 public class DriverControls {
@@ -13,6 +15,8 @@ public class DriverControls {
 
     // Drive Commands
     new JoystickButton(joystick, Button.RESET.id).whenPressed(new ZeroGyroCommand());
+    new JoystickButton(joystick, Button.ZERO_AZIMUTH.id)
+        .whenPressed(new StoreZeroEncoderPosition(RobotContainer.DRIVE));
   }
 
   /** Left stick X (up-down) axis. */
@@ -73,7 +77,8 @@ public class DriverControls {
     HAMBURGER(14),
     X(15),
     UP(16),
-    DOWN(17);
+    DOWN(17),
+    ZERO_AZIMUTH(4);
 
     private final int id;
 
