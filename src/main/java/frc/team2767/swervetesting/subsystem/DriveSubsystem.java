@@ -2,7 +2,8 @@ package frc.team2767.swervetesting.subsystem;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.strykeforce.thirdcoast.swerve.SwerveDrive;
 import org.strykeforce.thirdcoast.swerve.SwerveDriveConfig;
+import org.strykeforce.thirdcoast.swerve.TalonAzimuthImpl;
 import org.strykeforce.thirdcoast.swerve.Wheel;
 import org.strykeforce.thirdcoast.telemetry.TelemetryService;
 
@@ -64,7 +66,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   private Wheel[] getWheels() {
     TalonSRXConfiguration azimuthConfig = new TalonSRXConfiguration();
-    // NOTE: ensure encoders are in-phase with motor direction. Encoders should increase
+    // NOTE: ensure encoders are in-phase with motor direction. Encoders should
+    // increase
     // when azimuth motor runs in forward direction.
     azimuthConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
     azimuthConfig.continuousCurrentLimit = 10;
@@ -81,21 +84,21 @@ public class DriveSubsystem extends SubsystemBase {
     azimuthConfig.peakOutputForward = 0.75;
     azimuthConfig.peakOutputReverse = -0.75;
 
-    TalonSRXConfiguration driveConfig = new TalonSRXConfiguration();
+    TalonFXConfiguration driveConfig = new TalonFXConfiguration();
     driveConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
-    driveConfig.continuousCurrentLimit = 40;
-    driveConfig.peakCurrentDuration = 0;
-    driveConfig.peakCurrentLimit = 0;
+    // driveConfig.continuousCurrentLimit = 40;
+    // driveConfig.peakCurrentDuration = 0;
+    // driveConfig.peakCurrentLimit = 0;
 
     Wheel[] wheels = new Wheel[4];
 
     for (int i = 0; i < 4; i++) {
-      TalonSRX azimuthTalon = new TalonSRX(i);
+      TalonAzimuthImpl azimuthTalon = new TalonAzimuthImpl(i);
       azimuthTalon.configAllSettings(azimuthConfig);
 
       telemetryService.register(azimuthTalon);
 
-      TalonSRX driveTalon = new TalonSRX(i + 10);
+      TalonFX driveTalon = new TalonFX(i + 10);
       driveTalon.configAllSettings(driveConfig);
       driveTalon.setNeutralMode(NeutralMode.Brake);
 
