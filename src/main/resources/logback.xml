@@ -9,6 +9,7 @@
   </appender>
 
   <logger name="org.strykeforce.thirdcoast" level="DEBUG"/>
+  <logger name="frc.team2767.swervetesting.subsystem" level="DEBUG"/>
   <logger name="org.eclipse.jetty" level="INFO"/>
 
   <root level="verbose">

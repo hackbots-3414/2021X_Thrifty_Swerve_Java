@@ -34,8 +34,13 @@ public class DriveSubsystem extends SubsystemBase {
     zeroAzimuths();
   }
 
+  public void saveAzimuthPositions() {
+    swerve.saveAzimuthPositions();
+  }
+
   public void zeroAzimuths() {
     swerve.zeroAzimuthEncoders();
+    logger.debug("zeroAzimuths()");
   }
 
   public void drive(double forward, double strafe, double yaw) {
@@ -69,20 +74,20 @@ public class DriveSubsystem extends SubsystemBase {
     // NOTE: ensure encoders are in-phase with motor direction. Encoders should
     // increase
     // when azimuth motor runs in forward direction.
-    azimuthConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
-    azimuthConfig.continuousCurrentLimit = 10;
-    azimuthConfig.peakCurrentDuration = 0;
-    azimuthConfig.peakCurrentLimit = 0;
-    azimuthConfig.slot0.kP = 20;
-    azimuthConfig.slot0.kI = 0.0;
-    azimuthConfig.slot0.kD = 300.0;
-    azimuthConfig.slot0.kF = 0.0;
-    azimuthConfig.slot0.integralZone = 0;
-    azimuthConfig.slot0.allowableClosedloopError = 0;
-    azimuthConfig.motionAcceleration = 10_000;
-    azimuthConfig.motionCruiseVelocity = 800;
-    azimuthConfig.peakOutputForward = 0.75;
-    azimuthConfig.peakOutputReverse = -0.75;
+   // azimuthConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
+    // azimuthConfig.continuousCurrentLimit = 10;
+    // azimuthConfig.peakCurrentDuration = 0;
+    // azimuthConfig.peakCurrentLimit = 0;
+    // azimuthConfig.slot0.kP = 20;
+    // azimuthConfig.slot0.kI = 0.0;
+    // azimuthConfig.slot0.kD = 300.0;
+    // azimuthConfig.slot0.kF = 0.0;
+    // azimuthConfig.slot0.integralZone = 0;
+    // azimuthConfig.slot0.allowableClosedloopError = 0;
+    // azimuthConfig.motionAcceleration = 10_000;
+    // azimuthConfig.motionCruiseVelocity = 800;
+    // azimuthConfig.peakOutputForward = 0.75;
+    // azimuthConfig.peakOutputReverse = -0.75;
 
     TalonFXConfiguration driveConfig = new TalonFXConfiguration();
     driveConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
@@ -93,11 +98,11 @@ public class DriveSubsystem extends SubsystemBase {
     Wheel[] wheels = new Wheel[4];
 
     for (int i = 0; i < 4; i++) {
-      SparkMaxAzimuthImpl azimuthTalon = new SparkMaxAzimuthImpl(i, 30 + i, 20, 0, 300);
+      SparkMaxAzimuthImpl azimuthTalon = new SparkMaxAzimuthImpl(i + 1, 21 + i, .001, 0, 0);
 
       // telemetryService.register(azimuthTalon);
 
-      TalonFX driveTalon = new TalonFX(i + 10);
+      TalonFX driveTalon = new TalonFX(i + 31);
       driveTalon.configAllSettings(driveConfig);
       driveTalon.setNeutralMode(NeutralMode.Brake);
 

@@ -1,6 +1,7 @@
 package frc.team2767.swervetesting.control;
 
-import edu.wpi.first.wpilibj.Joystick;
+
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.team2767.swervetesting.RobotContainer;
 import frc.team2767.swervetesting.command.StoreZeroEncoderPosition;
@@ -8,30 +9,30 @@ import frc.team2767.swervetesting.command.ZeroGyroCommand;
 
 public class DriverControls {
 
-  private Joystick joystick;
+  private XboxController xboxcontroller;
 
   DriverControls(int portNumber) {
-    joystick = new Joystick(portNumber);
+    xboxcontroller = new XboxController(portNumber);
 
     // Drive Commands
-    new JoystickButton(joystick, Button.RESET.id).whenPressed(new ZeroGyroCommand());
-    new JoystickButton(joystick, Button.ZERO_AZIMUTH.id)
+    new JoystickButton(xboxcontroller, Button.RESET.id).whenPressed(new ZeroGyroCommand());
+    new JoystickButton(xboxcontroller, Button.ZERO_AZIMUTH.id)
         .whenPressed(new StoreZeroEncoderPosition(RobotContainer.DRIVE));
   }
 
   /** Left stick X (up-down) axis. */
   public double getForward() {
-    return -joystick.getRawAxis(Axis.LEFT_X.id);
+    return -xboxcontroller.getRawAxis(Axis.LEFT_X.id);
   }
 
   /** Left stick Y (left-right) axis. */
   public double getStrafe() {
-    return joystick.getRawAxis(Axis.LEFT_Y.id);
+    return xboxcontroller.getRawAxis(Axis.LEFT_Y.id);
   }
 
   /** Right stick Y (left-right) axis. */
   public double getYaw() {
-    return joystick.getRawAxis(Axis.RIGHT_Y.id);
+    return xboxcontroller.getRawAxis(Axis.RIGHT_Y.id);
   }
 
   public enum Axis {
