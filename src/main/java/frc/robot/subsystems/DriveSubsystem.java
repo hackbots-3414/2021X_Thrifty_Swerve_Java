@@ -39,14 +39,14 @@ public class DriveSubsystem extends SubsystemBase {
     Translation2d[] wheelLocations = DriveConstants.getWheelLocationMeters();
 
     for (int i = 0; i < 4; i++) {
-      var azimuthTalon = new TalonSRX(i);
+      var azimuthTalon = new TalonSRX(i + 10);
       azimuthTalon.configFactoryDefault(kTalonConfigTimeout);
       azimuthTalon.configAllSettings(DriveConstants.getAzimuthTalonConfig(), kTalonConfigTimeout);
       azimuthTalon.enableCurrentLimit(true);
       azimuthTalon.enableVoltageCompensation(true);
       azimuthTalon.setNeutralMode(NeutralMode.Coast);
 
-      var driveTalon = new TalonFX(i + 10);
+      var driveTalon = new TalonFX(i + 20);
       driveTalon.configFactoryDefault(kTalonConfigTimeout);
       driveTalon.configAllSettings(DriveConstants.getDriveTalonConfig(), kTalonConfigTimeout);
       driveTalon.enableVoltageCompensation(true);
