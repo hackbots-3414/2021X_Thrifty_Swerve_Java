@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>SwerveTest</name>
+	<name>2021X_Thrifty_Swerve_Java</name>
 	<comment>Project SwerveTest created by Buildship.</comment>
 	<projects>
 	</projects>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1634495221327</id>
+			<id>0</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

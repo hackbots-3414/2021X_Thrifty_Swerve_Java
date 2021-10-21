@@ -74,7 +74,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /** Returns the configured swerve drive modules. */
-  public SwerveModule[] getSwerveModules() {
+  private SwerveModule[] getSwerveModules() {
     return swerveDrive.getSwerveModules();
   }
 
@@ -137,6 +137,14 @@ public class DriveSubsystem extends SubsystemBase {
     ((TalonSwerveModule) swerveDrive.getSwerveModules()[1]).setAzimuthRotation2d(Rotation2d.fromDegrees(-45));
     ((TalonSwerveModule) swerveDrive.getSwerveModules()[2]).setAzimuthRotation2d(Rotation2d.fromDegrees(-45));
     ((TalonSwerveModule) swerveDrive.getSwerveModules()[3]).setAzimuthRotation2d(Rotation2d.fromDegrees(45));
+  }
+
+  public void storeZeroPositions() {
+    SwerveModule[] swerveModules = getSwerveModules();
+    for (int i = 0; i < swerveModules.length; i++) {
+      swerveModules[i].storeAzimuthZeroReference();
+    }
+    LOG.info("Stored zeros");
   }
 
 }
