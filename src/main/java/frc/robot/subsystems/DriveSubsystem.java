@@ -46,6 +46,8 @@ public class DriveSubsystem extends SubsystemBase {
       azimuthTalon.enableVoltageCompensation(true);
       azimuthTalon.setNeutralMode(NeutralMode.Coast);
 
+      LOG.trace("Constructing azimuth {}", azimuthTalon.getDeviceID());
+
       var driveTalon = new TalonFX(i + 20);
       driveTalon.configFactoryDefault(kTalonConfigTimeout);
       driveTalon.configAllSettings(DriveConstants.getDriveTalonConfig(), kTalonConfigTimeout);
@@ -143,6 +145,7 @@ public class DriveSubsystem extends SubsystemBase {
     SwerveModule[] swerveModules = getSwerveModules();
     for (int i = 0; i < swerveModules.length; i++) {
       swerveModules[i].storeAzimuthZeroReference();
+      LOG.trace("Storing azimuth {}", ((TalonSwerveModule) swerveModules[i]).getAzimuthTalon().getDeviceID());
     }
     LOG.info("Stored zeros");
   }

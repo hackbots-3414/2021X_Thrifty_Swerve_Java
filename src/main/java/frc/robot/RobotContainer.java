@@ -24,7 +24,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // DRIVE.setDefaultCommand(new TeleopDriveCommand());
+    DRIVE.setDefaultCommand(new TeleopDriveCommand());
     // Configure the button bindings
     configureButtonBindings();
   }
