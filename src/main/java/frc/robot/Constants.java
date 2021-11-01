@@ -31,7 +31,7 @@ public final class Constants {
     // Cool Strykeforce trick wiring Vcc to digital input 9 to sense Alpha vs. Beta
     private static final DigitalInput digitalInput = new DigitalInput(9);
     public static boolean isCompBot;
-    public static final int kTalonConfigTimeout = 3; // ms
+    public static final int kTalonConfigTimeout = 10; // ms
 
     public Constants() {
         isCompBot = digitalInput.get();
