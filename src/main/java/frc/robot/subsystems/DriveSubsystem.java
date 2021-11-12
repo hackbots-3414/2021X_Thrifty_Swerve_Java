@@ -45,6 +45,10 @@ public class DriveSubsystem extends SubsystemBase {
       azimuthTalon.enableCurrentLimit(true);
       azimuthTalon.enableVoltageCompensation(true);
       azimuthTalon.setNeutralMode(NeutralMode.Coast);
+      //TODO fix for i + 10
+      if (i==11||i==12) {
+        azimuthTalon.setSensorPhase(true);
+      }
 
       LOG.trace("Constructing azimuth {}", azimuthTalon.getDeviceID());
 

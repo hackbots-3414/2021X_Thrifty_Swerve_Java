@@ -21,17 +21,17 @@ public class DriverControls {
 
     public double getForward() {
         LOG.trace("getForward: {}", -joystick.getX(Hand.kLeft));
-        return -joystick.getX(Hand.kLeft);
+        return -joystick.getY(Hand.kLeft);
     }
 
     public double getStrafe() {
         LOG.trace("getStrafe: {}", -joystick.getY(Hand.kLeft));
-        return -joystick.getY(Hand.kLeft);
+        return -joystick.getX(Hand.kLeft);
     }
 
     public double getYaw() {
         LOG.trace("getYaw: {}", -joystick.getY(Hand.kRight));
-        return -joystick.getY(Hand.kRight);
+        return -joystick.getX(Hand.kRight);
     }
 
 }
