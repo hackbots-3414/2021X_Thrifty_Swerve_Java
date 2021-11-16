@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,7 +77,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+
+    //turn wheel for 1 second at 50%
+    
+
+  }
 
   @Override
   public void teleopInit() {
@@ -95,6 +102,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
+    LOG.trace("testInit before set Zero");
     CommandScheduler.getInstance().cancelAll();
     new SetZero().schedule();
     LOG.trace("Scheduled test commands");

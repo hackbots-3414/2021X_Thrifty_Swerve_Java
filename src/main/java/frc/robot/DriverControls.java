@@ -6,6 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.TestMotor11;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +35,11 @@ public class DriverControls {
     public double getYaw() {
         LOG.trace("getYaw: {}", -joystick.getY(Hand.kRight));
         return -joystick.getX(Hand.kRight);
+    }
+
+    public void configureButtonBindings() {
+        JoystickButton button = new JoystickButton(joystick, XboxController.Button.kA.value);
+        button.whenPressed(RobotContainer.TEST_MOTOR_11);
     }
 
 }

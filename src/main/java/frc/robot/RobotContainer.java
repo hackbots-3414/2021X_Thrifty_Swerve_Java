@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.commands.TestMotor11;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -20,6 +21,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static DriveSubsystem DRIVE = new DriveSubsystem();
   public static DriverControls DRIVER_CONTROLS = new DriverControls(0);
+  public static TestMotor11 TEST_MOTOR_11 = new TestMotor11();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -35,7 +37,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    DRIVER_CONTROLS.configureButtonBindings();
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -44,7 +48,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return TEST_MOTOR_11;
   }
 
 

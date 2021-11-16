@@ -8,6 +8,7 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.kTalonConfigTimeout;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -45,8 +46,9 @@ public class DriveSubsystem extends SubsystemBase {
       azimuthTalon.enableCurrentLimit(true);
       azimuthTalon.enableVoltageCompensation(true);
       azimuthTalon.setNeutralMode(NeutralMode.Coast);
-      //TODO fix for i + 10
-      if (i==11||i==12) {
+      //TODO fixing for right wheels
+      //inverted and won't stop trying to set to zero
+      if (i==1||i==3) {
         azimuthTalon.setSensorPhase(true);
       }
 
@@ -152,6 +154,11 @@ public class DriveSubsystem extends SubsystemBase {
       LOG.trace("Storing azimuth {}", ((TalonSwerveModule) swerveModules[i]).getAzimuthTalon().getDeviceID());
     }
     LOG.info("Stored zeros");
+  }
+
+  public void driveMotor11 (double speed) {
+    SwerveModule[] swerveModules = getSwerveModules();
+    ((TalonSwerveModule) swerveModules[1]).getAzimuthTalon().set(ControlMode.PercentOutput, speed);
   }
 
 }
