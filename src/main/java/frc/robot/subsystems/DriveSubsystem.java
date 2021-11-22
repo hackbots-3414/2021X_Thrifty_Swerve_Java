@@ -60,8 +60,7 @@ public class DriveSubsystem extends SubsystemBase {
       driveTalon.enableVoltageCompensation(true);
       driveTalon.setNeutralMode(NeutralMode.Brake);
 
-      swerveModules[i] = moduleBuilder.azimuthTalon(azimuthTalon).driveTalon(driveTalon)
-          .wheelLocationMeters(wheelLocations[i]).build();
+      swerveModules[i] = moduleBuilder.azimuthTalon(azimuthTalon).driveTalon(driveTalon).wheelLocationMeters(wheelLocations[i]).build();
 
       swerveModules[i].loadAndSetAzimuthZeroReference();
     }
@@ -156,9 +155,8 @@ public class DriveSubsystem extends SubsystemBase {
     LOG.info("Stored zeros");
   }
 
-  public void driveMotor11 (double speed) {
+  public void driveMotor11(double speed) {
     SwerveModule[] swerveModules = getSwerveModules();
     ((TalonSwerveModule) swerveModules[1]).getAzimuthTalon().set(ControlMode.PercentOutput, speed);
   }
-
 }
