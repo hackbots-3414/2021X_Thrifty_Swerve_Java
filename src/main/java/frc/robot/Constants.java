@@ -87,7 +87,7 @@ public final class Constants {
             azimuthConfig.continuousCurrentLimit = 10;
             azimuthConfig.peakCurrentDuration = 0;
             azimuthConfig.peakCurrentLimit = 0;
-            azimuthConfig.slot0.kP = 10.0;
+            azimuthConfig.slot0.kP = 7.0;
             azimuthConfig.slot0.kI = 0.0;
             azimuthConfig.slot0.kD = 100.0;
             azimuthConfig.slot0.kF = 0.0;

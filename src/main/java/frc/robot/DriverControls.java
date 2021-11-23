@@ -6,15 +6,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController.Button;
+// import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.TestMotor11;
+// import frc.robot.commands.TestMotor11;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Add your docs here. */
 public class DriverControls {
+
+    public static int driveMode = 1;
+
     private static final Logger LOG = LoggerFactory.getLogger(DriverControls.class);
     private XboxController joystick;
 
@@ -38,8 +41,10 @@ public class DriverControls {
     }
 
     public void configureButtonBindings() {
-        JoystickButton button = new JoystickButton(joystick, XboxController.Button.kA.value);
-        button.whenPressed(RobotContainer.TEST_MOTOR_11);
+        // JoystickButton buttonA = new JoystickButton(joystick, XboxController.Button.kA.value);
+        // buttonA.whenPressed(RobotContainer.TEST_MOTOR_11);
+        JoystickButton buttonB = new JoystickButton(joystick, XboxController.Button.kB.value);
+        buttonB.whenPressed(RobotContainer.SET_ZERO);
     }
 
 }

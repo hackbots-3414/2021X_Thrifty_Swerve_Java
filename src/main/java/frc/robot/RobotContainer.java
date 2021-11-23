@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import java.util.Set;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.TestMotor11;
+import frc.robot.commands.GarbageCommand;
+import frc.robot.commands.SetZero;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -22,6 +26,7 @@ public class RobotContainer {
   public static DriveSubsystem DRIVE = new DriveSubsystem();
   public static DriverControls DRIVER_CONTROLS = new DriverControls(0);
   public static TestMotor11 TEST_MOTOR_11 = new TestMotor11();
+  public static SetZero SET_ZERO = new SetZero();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

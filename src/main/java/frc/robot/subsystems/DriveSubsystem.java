@@ -47,7 +47,7 @@ public class DriveSubsystem extends SubsystemBase {
       azimuthTalon.enableVoltageCompensation(true);
       azimuthTalon.setNeutralMode(NeutralMode.Coast);
       //TODO fixing for right wheels
-      //inverted and won't stop trying to set to zero
+      // TODO: reverse yaw motors for right side
       if (i==1||i==3) {
         azimuthTalon.setSensorPhase(true);
       }
@@ -155,8 +155,10 @@ public class DriveSubsystem extends SubsystemBase {
     LOG.info("Stored zeros");
   }
 
-  public void driveMotor11(double speed) {
+  public void testAllMotors(double speed) {
     SwerveModule[] swerveModules = getSwerveModules();
-    ((TalonSwerveModule) swerveModules[1]).getAzimuthTalon().set(ControlMode.PercentOutput, speed);
+    for (int i = 0; i < swerveModules.length; i++) {
+      ((TalonSwerveModule) swerveModules[i]).getAzimuthTalon().set(ControlMode.PercentOutput, speed);
+    }
   }
 }

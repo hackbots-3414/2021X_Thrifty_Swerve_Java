@@ -1,9 +1,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import org.strykeforce.thirdcoast.util.ExpoScale;
-import frc.robot.Constants;
-import frc.robot.DriverControls;
+// import org.strykeforce.thirdcoast.util.ExpoScale;
+// import frc.robot.Constants;
+// import frc.robot.DriverControls;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -24,7 +24,7 @@ public class TestMotor11 extends CommandBase {
 
     @Override
     public void execute() {
-        drive.driveMotor11(0.5);
+        drive.testAllMotors(0.5);
         
     }
 

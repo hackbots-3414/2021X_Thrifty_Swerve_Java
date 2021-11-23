@@ -46,14 +46,14 @@ public class TeleopDriveCommand extends CommandBase {
   @Override
   public void execute() {
     // TODO Replate with something for the driverControls...
-    double forward = forwardScale.apply(driverControls.getForward());
-    double strafe = strafeScale.apply(driverControls.getStrafe());
-    double yaw = yawScale.apply(driverControls.getYaw());
-    double vx = forward * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
-    double vy = strafe * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
-    double omega = yaw * Constants.DriveConstants.kMaxOmega;
+    double forward = forwardScale.apply(driverControls.getForward()); // CLENSE THE WORLD OF LINE NAME LENGTH
+    double strafe  = strafeScale. apply(driverControls. getStrafe());
+    double yaw     = yawScale.    apply(driverControls.    getYaw());
+    forward        = forward * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
+    strafe         = strafe *  Constants.DriveConstants.kMaxSpeedMetersPerSecond;
+    yaw            = yaw *     Constants.DriveConstants.               kMaxOmega;
 
-    drive.drive(vx, vy, omega);
+    drive.drive(forward, strafe, yaw);
   }
 
   // Called once the command ends or is interrupted.
