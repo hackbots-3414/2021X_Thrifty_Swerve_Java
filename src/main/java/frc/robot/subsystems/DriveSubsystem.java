@@ -50,6 +50,7 @@ public class DriveSubsystem extends SubsystemBase {
       // TODO: reverse yaw motors for right side
       if (i==1||i==3) {
         azimuthTalon.setSensorPhase(true);
+        azimuthTalon.setInverted(true);
       }
 
       LOG.trace("Constructing azimuth {}", azimuthTalon.getDeviceID());
@@ -158,7 +159,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void testAllMotors(double speed) {
     SwerveModule[] swerveModules = getSwerveModules();
     for (int i = 0; i < swerveModules.length; i++) {
-      ((TalonSwerveModule) swerveModules[i]).getAzimuthTalon().set(ControlMode.PercentOutput, speed);
+      ((TalonSwerveModule) swerveModules[i]).getAzimuthTalon().set(ControlMode.Position, 30);
     }
   }
 }
