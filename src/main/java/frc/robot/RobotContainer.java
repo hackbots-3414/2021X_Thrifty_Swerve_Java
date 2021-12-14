@@ -14,6 +14,7 @@ import frc.robot.commands.TestMotor11;
 import frc.robot.commands.GarbageCommand;
 import frc.robot.commands.SetZero;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.util.CartesianPolar;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,6 +26,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static DriveSubsystem DRIVE = new DriveSubsystem();
   public static DriverControls DRIVER_CONTROLS = new DriverControls(0);
+  public static CartesianPolar CARTESIAN_POLAR = new CartesianPolar();
   public static TestMotor11 TEST_MOTOR_11 = new TestMotor11();
   public static SetZero SET_ZERO = new SetZero();
 

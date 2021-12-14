@@ -41,8 +41,8 @@ public class DriverControls {
     }
 
     public void configureButtonBindings() {
-        // JoystickButton buttonA = new JoystickButton(joystick, XboxController.Button.kA.value);
-        // buttonA.whenPressed(RobotContainer.TEST_MOTOR_11);
+        JoystickButton buttonA = new JoystickButton(joystick, XboxController.Button.kA.value);
+        buttonA.whenPressed(RobotContainer.TEST_MOTOR_11);
         JoystickButton buttonB = new JoystickButton(joystick, XboxController.Button.kB.value);
         buttonB.whenPressed(RobotContainer.SET_ZERO);
     }

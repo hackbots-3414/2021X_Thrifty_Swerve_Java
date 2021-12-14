@@ -24,18 +24,21 @@ public class TestMotor11 extends CommandBase {
 
     @Override
     public void execute() {
-        drive.testAllMotors(0.5);
+        for (int i = 0; i < 4; i++) {
+            drive.setSwerveModuleVelocity(0.1, i);
+        }
         
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        drive.drive(0, 0, 0);
+        // drive.drive(0, 0, 0);
     }
 
     @Override
     public boolean isFinished() {
+        // return true;
         return startTimeMillis + 1000 <= System.currentTimeMillis();
     }
     
