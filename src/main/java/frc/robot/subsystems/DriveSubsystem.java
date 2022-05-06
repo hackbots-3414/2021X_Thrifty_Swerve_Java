@@ -8,6 +8,7 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.kTalonConfigTimeout;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -39,21 +41,28 @@ public class DriveSubsystem extends SubsystemBase {
     Translation2d[] wheelLocations = DriveConstants.getWheelLocationMeters();
 
     for (int i = 0; i < 4; i++) {
-      var azimuthTalon = new TalonSRX(i);
+      var azimuthTalon = new TalonSRX(i + 10);
       azimuthTalon.configFactoryDefault(kTalonConfigTimeout);
       azimuthTalon.configAllSettings(DriveConstants.getAzimuthTalonConfig(), kTalonConfigTimeout);
       azimuthTalon.enableCurrentLimit(true);
       azimuthTalon.enableVoltageCompensation(true);
       azimuthTalon.setNeutralMode(NeutralMode.Coast);
+      //TODO fixing for right wheels
+      // TODO: reverse yaw motors for right side
+      if (i==1||i==3) {
+        azimuthTalon.setSensorPhase(true);
+        azimuthTalon.setInverted(true);
+      }
 
-      var driveTalon = new TalonFX(i + 10);
+      LOG.trace("Constructing azimuth {}", azimuthTalon.getDeviceID());
+
+      var driveTalon = new TalonFX(i + 20);
       driveTalon.configFactoryDefault(kTalonConfigTimeout);
       driveTalon.configAllSettings(DriveConstants.getDriveTalonConfig(), kTalonConfigTimeout);
       driveTalon.enableVoltageCompensation(true);
       driveTalon.setNeutralMode(NeutralMode.Brake);
 
-      swerveModules[i] = moduleBuilder.azimuthTalon(azimuthTalon).driveTalon(driveTalon)
-          .wheelLocationMeters(wheelLocations[i]).build();
+      swerveModules[i] = moduleBuilder.azimuthTalon(azimuthTalon).driveTalon(driveTalon).wheelLocationMeters(wheelLocations[i]).build();
 
       swerveModules[i].loadAndSetAzimuthZeroReference();
     }
@@ -139,4 +148,32 @@ public class DriveSubsystem extends SubsystemBase {
     ((TalonSwerveModule) swerveDrive.getSwerveModules()[3]).setAzimuthRotation2d(Rotation2d.fromDegrees(45));
   }
 
+  public void storeZeroPositions() {
+    SwerveModule[] swerveModules = getSwerveModules();
+    for (int i = 0; i < swerveModules.length; i++) {
+      swerveModules[i].storeAzimuthZeroReference();
+      LOG.trace("Storing azimuth {}", ((TalonSwerveModule) swerveModules[i]).getAzimuthTalon().getDeviceID());
+    }
+    LOG.info("Stored zeros");
+  }
+
+  public void testAllMotors(double speed) {
+    SwerveModule[] swerveModules = getSwerveModules();
+    for (int i = 0; i < swerveModules.length; i++) {
+      ((TalonSwerveModule) swerveModules[i]).getAzimuthTalon().set(ControlMode.Position, 2048);
+    }
+  }
+  
+  public void setSwerveModuleYaw(int ticks, int motor) {
+    // ticks is the position of the motor, 4096 being 360 degrees.
+    // motor is the index of the motor, in can id order starting from 0.
+    SwerveModule[] swerveModules = getSwerveModules();
+    ((TalonSwerveModule) swerveModules[motor]).getAzimuthTalon().set(ControlMode.Position, ticks);
+  }
+  
+  public void setSwerveModuleVelocity(double velocity, int motor) {
+    SwerveModule[] swerveModules = getSwerveModules();
+    ((TalonSwerveModule) swerveModules[motor]).getDriveTalon().set(ControlMode.Velocity, velocity);
+    // TODO: figure out how to drive talonFX motors directly
+  }
 }

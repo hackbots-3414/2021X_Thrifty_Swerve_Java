@@ -7,32 +7,26 @@ package frc.robot.commands;
 import org.strykeforce.thirdcoast.util.ExpoScale;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.DriverControls;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.util.CartesianPolar;
 
 public class TeleopDriveCommand extends CommandBase {
   private DriveSubsystem drive = RobotContainer.DRIVE;
-  
-  private static final double FORWARD_DEADBAND = 0.05;
-  private static final double STRAFE_DEADBAND = 0.05;
-  private static final double YAW_DEADBAND = 0.01;
+  private DriverControls driverControls = RobotContainer.DRIVER_CONTROLS;
+  private CartesianPolar cartesianPolar = RobotContainer.CARTESIAN_POLAR;
 
-  private static final double FORWARD_XPOSCALE = 0.6;
-  private static final double STRAFE_XPOSCALE = 0.6;
-  private static final double YAW_XPOSCALE = 0.75;
-
-  private final ExpoScale forwardScale;
-  private final ExpoScale strafeScale;
-  private final ExpoScale yawScale;
-
+  int currMotorTicks = 0;
+  int prevMotorTicks = 0;
+  int tickDifference = 0;
+  int tickOffset = 0;
   
   /** Creates a new TeleopDriveCommand. */
   public TeleopDriveCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
-    forwardScale = new ExpoScale(FORWARD_DEADBAND, FORWARD_XPOSCALE);
-    strafeScale = new ExpoScale(STRAFE_DEADBAND, STRAFE_XPOSCALE);
-    yawScale = new ExpoScale(YAW_DEADBAND, YAW_XPOSCALE);
   }
 
   // Called when the command is initially scheduled.
@@ -42,15 +36,28 @@ public class TeleopDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // TODO Replate with something for the driverControls...
-    //double forward = forwardScale.apply(driverControls.getForward());
-    //double strafe = strafeScale.apply(driverControls.getStrafe());
-    //double yaw = yawScale.apply(driverControls.getYaw());
-    //double vx = forward * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
-    //double vy = strafe * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
-    //double omega = yaw * Constants.DriveConstants.kMaxOmega;
+    currMotorTicks = (int) Math.round(cartesianPolar.cartesianToTheta(driverControls.getStrafe(), driverControls.getForward()));
+    
+    tickDifference = currMotorTicks - prevMotorTicks;
 
-    //drive.drive(vx, vy, omega);
+    if (Math.abs(tickDifference) >= 2048) {
+      if (tickDifference >= 2048) {
+        tickOffset -= 4096;
+      }
+      else if (tickDifference <= -2048) {
+        tickOffset += 4096;
+      }
+    }
+
+    if (Math.abs(driverControls.getStrafe()) == 0 && Math.abs(driverControls.getForward()) == 0) {
+      currMotorTicks = prevMotorTicks;
+    }
+
+    for (int i = 0; i < drive.getSwerveModules().length; i++) {
+      drive.setSwerveModuleYaw(currMotorTicks + tickOffset, i);
+    }
+
+    prevMotorTicks = currMotorTicks;
   }
 
   // Called once the command ends or is interrupted.

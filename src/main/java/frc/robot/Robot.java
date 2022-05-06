@@ -4,9 +4,15 @@
 
 package frc.robot;
 
+// import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.SetZero;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -15,6 +21,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Robot.class);
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -56,7 +65,9 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    
+    m_autonomousCommand = new SetZero();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -66,7 +77,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+
+    //turn wheel for 1 second at 50%
+    
+
+  }
 
   @Override
   public void teleopInit() {
@@ -86,7 +102,13 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
+    LOG.trace("testInit before set Zero");
     CommandScheduler.getInstance().cancelAll();
+    new SetZero().schedule();
+    LOG.trace("Scheduled test commands");
+    // System.exit(1);
+    // System.out.println("Scheduled test commands");
+
   }
 
   /** This function is called periodically during test mode. */
