@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 // import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 // import frc.robot.commands.TestMotor11;
@@ -26,18 +25,18 @@ public class DriverControls {
     }
 
     public double getForward() {
-        LOG.trace("getForward: {}", joystick.getY(Hand.kLeft));
-        return joystick.getY(Hand.kLeft);
+        LOG.trace("getForward: {}", joystick.getLeftY());
+        return joystick.getLeftY();
     }
 
     public double getStrafe() {
-        LOG.trace("getStrafe: {}", joystick.getX(Hand.kLeft));
-        return joystick.getX(Hand.kLeft);
+        LOG.trace("getStrafe: {}", joystick.getLeftX());
+        return joystick.getLeftX();
     }
 
     public double getYaw() {
-        LOG.trace("getYaw: {}", -joystick.getY(Hand.kRight));
-        return -joystick.getX(Hand.kRight);
+        LOG.trace("getYaw: {}", -joystick.getRightY());
+        return -joystick.getRightX();
     }
 
     public void configureButtonBindings() {

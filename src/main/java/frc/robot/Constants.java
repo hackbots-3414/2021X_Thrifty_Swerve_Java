@@ -6,15 +6,15 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
+import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -31,6 +31,7 @@ public final class Constants {
     // Cool Strykeforce trick wiring Vcc to digital input 9 to sense Alpha vs. Beta
     private static final DigitalInput digitalInput = new DigitalInput(9);
     public static boolean isCompBot;
+    public static String kCanivoreName = "falcons-canivore";
     public static final int kTalonConfigTimeout = 10; // ms
 
     public Constants() {
@@ -114,7 +115,7 @@ public final class Constants {
             driveConfig.slot0.integralZone = 500;
             driveConfig.slot0.maxIntegralAccumulator = 75_000;
             driveConfig.slot0.allowableClosedloopError = 0;
-            driveConfig.velocityMeasurementPeriod = VelocityMeasPeriod.Period_100Ms;
+            driveConfig.velocityMeasurementPeriod = SensorVelocityMeasPeriod.Period_100Ms;
             driveConfig.velocityMeasurementWindow = 64;
             driveConfig.voltageCompSaturation = 12;
             return driveConfig;

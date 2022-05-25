@@ -8,11 +8,7 @@
     </encoder>
   </appender>
 
-  <!-- <logger name="frc.robot.commands" level="INFO"/> -->
-  <!-- <logger name="frc.robot.DriverControls" level="TRACE"/> -->
-  <logger name="frc.robot.commands.SetZero" level="TRACE"/>
-  <!-- <logger name="frc.robot.Robot" level="WARN"/> -->
-  <!-- <logger name="frc.robot.subsystems.DriveSubsystem" level="TRACE"/> -->
+  <logger name="frc.robot.commands" level="INFO"/>
   <!--logger name="frc.robot.commands.MrZPrintCommand" level="TRACE"/-->
 
   <root level="WARN">
