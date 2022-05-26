@@ -16,7 +16,7 @@ public class StrykeForceTeleOp extends CommandBase {
 
   private static final double FORWARD_DEADBAND = 0.05;
   private static final double STRAFE_DEADBAND = 0.05;
-  private static final double YAW_DEADBAND = 0.01;
+  private static final double YAW_DEADBAND = 0.05;
 
   private static final double FORWARD_XPOSCALE = 0.6;
   private static final double STRAFE_XPOSCALE = 0.6;
