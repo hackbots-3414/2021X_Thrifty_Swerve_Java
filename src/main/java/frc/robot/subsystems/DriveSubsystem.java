@@ -69,6 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     swerveDrive = new SwerveDrive(swerveModules);
+    storeZeroPositions();
     swerveDrive.resetGyro();
     swerveDrive.setGyroOffset(Rotation2d.fromDegrees(180));
   }
@@ -110,7 +111,7 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    swerveDrive.periodic();
+    // swerveDrive.periodic();
   }
 
   /**

@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import org.strykeforce.thirdcoast.util.ExpoScale;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.DriverControls;
@@ -36,6 +37,9 @@ public class TeleopDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (DriverStation.isTest()) {
+      return;
+    }
     currMotorTicks = (int) Math.round(cartesianPolar.cartesianToTheta(driverControls.getStrafe(), driverControls.getForward()));
     
     tickDifference = currMotorTicks - prevMotorTicks;

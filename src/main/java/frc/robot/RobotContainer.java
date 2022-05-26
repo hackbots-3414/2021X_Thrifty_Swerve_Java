@@ -4,15 +4,12 @@
 
 package frc.robot;
 
-import java.util.Set;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.TestMotor11;
-import frc.robot.commands.GarbageCommand;
 import frc.robot.commands.SetZero;
+import frc.robot.commands.StrykeForceTeleOp;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.CartesianPolar;
 
@@ -33,7 +30,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    DRIVE.setDefaultCommand(new TeleopDriveCommand());
+    DRIVE.setDefaultCommand(new StrykeForceTeleOp());
     // Configure the button bindings
     configureButtonBindings();
   }

@@ -36,7 +36,7 @@ public class DriverControls {
 
     public double getYaw() {
         LOG.trace("getYaw: {}", -joystick.getRightY());
-        return -joystick.getRightX();
+        return joystick.getRightX();
     }
 
     public void configureButtonBindings() {
