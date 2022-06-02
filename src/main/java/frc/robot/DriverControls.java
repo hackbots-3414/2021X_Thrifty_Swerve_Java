@@ -26,12 +26,12 @@ public class DriverControls {
 
     public double getForward() {
         LOG.trace("getForward: {}", joystick.getLeftY());
-        return joystick.getLeftY();
+        return -joystick.getLeftY();
     }
 
     public double getStrafe() {
         LOG.trace("getStrafe: {}", joystick.getLeftX());
-        return joystick.getLeftX();
+        return -joystick.getLeftX();
     }
 
     public double getYaw() {

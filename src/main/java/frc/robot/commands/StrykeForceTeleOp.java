@@ -39,9 +39,9 @@ public class StrykeForceTeleOp extends CommandBase {
     double forward = forwardScale.apply(driverControls.getForward());
     double strafe = strafeScale.apply(driverControls.getStrafe());
     double yaw = yawScale.apply(driverControls.getYaw());
-    double vx = forward * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
-    double vy = strafe * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
-    double omega = yaw * Constants.DriveConstants.kMaxOmega;
+    double vx = forward * Constants.DriveConstants.kMaxSpeedMetersPerSecond * 0.2;
+    double vy = strafe * Constants.DriveConstants.kMaxSpeedMetersPerSecond * 0.2;
+    double omega = yaw * Constants.DriveConstants.kMaxOmega * 0.2;
 
     DRIVE.move(vx, -vy, omega, true);
   }

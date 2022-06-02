@@ -102,10 +102,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
-    LOG.trace("testInit before set Zero");
-    CommandScheduler.getInstance().cancelAll();
-    new SetZero().schedule();
-    LOG.trace("Scheduled test commands");
+    m_robotContainer.DRIVE.storeZeroPositions();
     // System.exit(1);
     // System.out.println("Scheduled test commands");
 
